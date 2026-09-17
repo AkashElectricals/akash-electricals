@@ -1,0 +1,229 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --shadow-glow: 0 0 36px color-mix(in oklab, var(--primary) 28%, transparent);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.13 0.035 255);
+  --foreground: oklch(0.97 0.012 92);
+  --card: oklch(0.18 0.04 254);
+  --card-foreground: oklch(0.97 0.012 92);
+  --primary: oklch(0.79 0.16 78);
+  --primary-foreground: oklch(0.15 0.035 255);
+  --secondary: oklch(0.76 0.13 178);
+  --secondary-foreground: oklch(0.13 0.035 255);
+  --muted: oklch(0.21 0.035 254);
+  --muted-foreground: oklch(0.71 0.025 245);
+  --accent: oklch(0.23 0.048 248);
+  --accent-foreground: oklch(0.97 0.012 92);
+  --destructive: oklch(0.64 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.34 0.04 249 / 65%);
+  --input: oklch(0.3 0.04 250);
+  --ring: oklch(0.79 0.16 78);
+  --surface: oklch(0.155 0.038 254);
+  --glass: oklch(0.22 0.04 250 / 48%);
+  --glass-border: oklch(0.78 0.04 240 / 22%);
+}
+
+* { border-color: var(--color-border); }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); }
+button, a, input, select, textarea { letter-spacing: 0; }
+
+@utility glass-panel {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass);
+  backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--foreground) 10%, transparent), 0 24px 60px color-mix(in oklab, var(--background) 58%, transparent);
+}
+
+@utility hero-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--border) 24%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--border) 24%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 78% 48%, color-mix(in oklab, var(--primary) 17%, transparent), transparent 28%);
+  background-size: 64px 64px, 64px 64px, auto;
+  mask-image: linear-gradient(to bottom, black 82%, transparent);
+}
+
+@utility text-shine {
+  color: var(--primary);
+  text-shadow: 0 0 42px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass);
+  padding: 0.5rem 0.8rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  backdrop-filter: blur(14px);
+}
+
+@utility section-kicker {
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+@utility nav-link {
+  transition: color 180ms ease;
+  &:hover { color: var(--foreground); }
+}
+
+@utility hero-product-card {
+  position: relative;
+  z-index: 2;
+  width: min(74vw, 500px);
+  aspect-ratio: 0.84;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: calc(var(--radius) * 2);
+  background: var(--glass);
+  box-shadow: 0 40px 90px color-mix(in oklab, var(--background) 82%, transparent), 0 0 80px color-mix(in oklab, var(--primary) 15%, transparent), inset 0 1px 0 color-mix(in oklab, var(--foreground) 13%, transparent);
+  transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
+  animation: product-float 6s ease-in-out infinite;
+}
+
+@utility orbital-ring {
+  position: absolute;
+  width: min(88vw, 610px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--primary) 32%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 90px color-mix(in oklab, var(--primary) 13%, transparent), inset 0 0 90px color-mix(in oklab, var(--primary) 7%, transparent);
+  transform: rotateX(68deg) rotateZ(-10deg);
+}
+
+@utility glass-float {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  min-width: 130px;
+  flex-direction: column;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass);
+  padding: 1rem;
+  backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 0 18px 50px color-mix(in oklab, var(--background) 68%, transparent);
+}
+
+@utility metric-value { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: var(--primary); }
+@utility metric-label { margin-top: 0.15rem; font-size: 0.7rem; color: var(--muted-foreground); }
+
+@utility product-tab {
+  display: flex;
+  min-height: 112px;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  padding: 1.35rem;
+  color: var(--muted-foreground);
+  transition: background 180ms ease, color 180ms ease;
+  cursor: pointer;
+  &:last-child { border-bottom: 0; }
+  &:hover { background: var(--accent); color: var(--foreground); }
+}
+
+@utility product-tab-active {
+  background: var(--accent);
+  color: var(--foreground);
+  box-shadow: inset 3px 0 var(--primary);
+}
+
+@utility product-showcase { animation: image-in 420ms ease both; }
+
+@utility dealer-panel {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, var(--card), color-mix(in oklab, var(--secondary) 10%, var(--background)));
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--foreground) 10%, transparent), 0 30px 80px color-mix(in oklab, var(--background) 45%, transparent);
+}
+
+@utility dealer-sun {
+  position: absolute;
+  right: -3rem;
+  top: 50%;
+  color: color-mix(in oklab, var(--primary) 55%, transparent);
+  filter: drop-shadow(0 0 45px color-mix(in oklab, var(--primary) 42%, transparent));
+  transform: translateY(-50%);
+}
+
+@utility form-field {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  & input, & select, & textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--background) 65%, transparent);
+    padding: 0.85rem 1rem;
+    color: var(--foreground);
+    outline: none;
+  }
+  & input:focus, & select:focus, & textarea:focus { border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 16%, transparent); }
+  & input::placeholder, & textarea::placeholder { color: var(--muted-foreground); }
+}
+
+@keyframes product-float { 0%, 100% { transform: perspective(1000px) rotateY(-8deg) rotateX(2deg) translateY(0); } 50% { transform: perspective(1000px) rotateY(-5deg) rotateX(1deg) translateY(-12px); } }
+@keyframes image-in { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 767px) {
+  .hero-product-card { width: min(76vw, 380px); }
+  .glass-float { min-width: 112px; padding: 0.8rem; }
+  .dealer-sun { opacity: 0.22; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-product-card, .product-showcase { animation: none; }
+}
